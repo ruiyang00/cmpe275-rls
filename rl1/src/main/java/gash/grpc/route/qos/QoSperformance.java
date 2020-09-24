@@ -33,6 +33,7 @@ public class QoSperformance<T> implements QoS<T> {
 	private OperatingSystemMXBean systemMXBean;
 	private ThreadMXBean threadMXBean;
 
+
 	@SuppressWarnings("unused")
 	private static final long sKB = 1024L;
 
@@ -45,8 +46,8 @@ public class QoSperformance<T> implements QoS<T> {
 		systemMXBean = ManagementFactory.getOperatingSystemMXBean();
 
 		// TODO write this to a file
-		// System.out.println("# counter, queue-size, thread-cpu-time,load-average,
-		// heap-usage");
+		System.out.println("# counter, queue-size, thread-cpu-time,load-average,
+		heap-usage");
 	}
 
 	public void snapshot() {

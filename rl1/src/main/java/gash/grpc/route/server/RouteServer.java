@@ -31,6 +31,7 @@ public class RouteServer {
 	protected static Properties conf;
 	protected Long serverID;
 	protected Integer serverPort;
+	protected String serverIP;
 	protected Long nextMessageID;
 
 	private RouteServer() {
@@ -53,14 +54,23 @@ public class RouteServer {
 		// extract settings. Here we are using basic properties which, requires
 		// type checking and should also include range checking as well.
 
-		var tmp = conf.getProperty("server.id");
-		if (tmp == null)
-			throw new RuntimeException("missing server ID");
-		serverID = Long.parseLong(tmp);
+		var tmp = conf.getProperty("server.3");
+		String[] serverInfo = tmp.split(":");
+		if (serverInfo == null || serverInfo.length == 0)
+			throw new RuntimeException("missing server info");
 
-		tmp = conf.getProperty("server.port");
+		tmp = serverInfo[0];
+		if (tmp == null) {
+			throw new RuntimeException("missing server id");
+		}
+		serverID = Long.parseLong(serverInfo[0]);
+
+		tmp = serverInfo[1];
 		if (tmp == null)
 			throw new RuntimeException("missing server port");
+		serverIP = "" + serverInfo[1];
+
+		tmp = serverInfo[2];
 		serverPort = Integer.parseInt(tmp);
 		if (serverPort <= 1024)
 			throw new RuntimeException("server port must be above 1024");

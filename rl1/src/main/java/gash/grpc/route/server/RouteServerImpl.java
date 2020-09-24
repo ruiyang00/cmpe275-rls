@@ -13,7 +13,6 @@ import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
 import route.RouteServiceGrpc.RouteServiceImplBase;
 
-import org.apache.log4j.BasicConfigurator;
 
 public class RouteServerImpl extends RouteServiceImplBase {
 	private static final int Q_THRESHOLD = 200;

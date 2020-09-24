@@ -86,7 +86,7 @@ public class RouteClient {
 		qos.snapshot();
 		System.out.flush();
 
-		int I = 200;
+		int I = 20;
 		for (int i = 0; i < I; i++) {
 			// build a sizable payload
 			byte[] raw = RouteClient.generateData();
@@ -96,6 +96,7 @@ public class RouteClient {
 			bld.setOrigin(RouteClient.clientID);
 			bld.setPath("/to/somewhere");
 			bld.setPayload(ByteString.copyFrom(raw));
+			bld.setDestination(RouteClient.clientID);
 
 			// l.append(task)
 			queue.enqueue(bld.build());
