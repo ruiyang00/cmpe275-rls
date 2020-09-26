@@ -67,9 +67,9 @@ public class RouteServerImpl extends RouteServiceImplBase {
 		queue.start();
 
 		// TODO How to expand on this concept?
-		for (int i = 0; i < 2; i++) {
+		for (int i = 0; i < 1; i++) {
 			ServerWorker<ServerTask> w = new ServerWorker<ServerTask>();
-			w.setWorkerID("W" + i);
+			w.setWorkerID("S" + i);
 			// w.setVerbose(true);
 			System.out.println("--> starting worker " + w.getWorkerID());
 			queue.registerWorker(w);
@@ -132,6 +132,8 @@ public class RouteServerImpl extends RouteServiceImplBase {
 			final RouteServerImpl impl = new RouteServerImpl();
 			impl.start();
 			impl.blockUntilShutdown();
+			
+			System.exit(0);
 
 		} catch (IOException e) {
 			// TODO better error message

@@ -73,20 +73,26 @@ public class RouteClient {
 		queue.setQoS(qos);
 		queue.start();
 
-		System.out.println("--> starting worker");
-		var w = new ClientWorker<route.Route>(stub);
-		w.setMaxQueuedTasks(1);
-		// w.setVerbose(true);
-		w.setWorkerID("C1");
-		queue.registerWorker(w);
-		w.start();
+		int max = 3;
+
+		for(int i = 0; i < max; i++) {	
+			System.out.println("--> starting worker");
+			var w = new ClientWorker<route.Route>(stub);
+			w.setMaxQueuedTasks(1);
+			// w.setVerbose(true);
+			w.setWorkerID("C" + i);
+			queue.registerWorker(w);
+			w.start();
+		}
+		
+		
 
 		// where we are before starting
 		// Runtime.getRuntime().gc();
 		qos.snapshot();
 		System.out.flush();
 
-		int I = 20;
+		int I = 3000;
 		for (int i = 0; i < I; i++) {
 			// build a sizable payload
 			byte[] raw = RouteClient.generateData();

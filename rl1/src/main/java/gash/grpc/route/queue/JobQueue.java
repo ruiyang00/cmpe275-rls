@@ -56,6 +56,7 @@ public class JobQueue<T> extends Thread {
 	 */
 	private boolean process(T task) {
 		if (workers.size() > 1) {
+			// System.out.println("add task to the queue got called fron JobQueue class");
 			// determine which thread to give the work to
 			for (JobWorker<T> w : workers) {
 				// TODO How to implement a round-robin scheduler?

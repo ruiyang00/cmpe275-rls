@@ -3,6 +3,10 @@ package gash.grpc.route.server;
 import com.google.protobuf.ByteString;
 
 import gash.grpc.route.queue.JobWorker;
+import io.grpc.ManagedChannel;
+import io.grpc.ManagedChannelBuilder;
+import route.Route;
+import route.RouteServiceGrpc;
 
 /**
  * copyright 2019, gash
@@ -24,6 +28,8 @@ import gash.grpc.route.queue.JobWorker;
  */
 public class ServerWorker<T> extends JobWorker<T> {
 	private boolean verbose = false;
+	private static int port = 2345;
+
 
 	public void setVerbose(boolean yes) {
 
@@ -47,8 +53,12 @@ public class ServerWorker<T> extends JobWorker<T> {
 
 		// -------------------------------------------------------------------
 		// TODO a placeholder for doing work
+		ManagedChannel ch = ManagedChannelBuilder.forAddress("localhost", port).usePlaintext().build();
+		
 
-		System.out.println("This is message:" + task.request);
+		
+
+		
 
 		final String blank = "blank";
 		var workResults = ByteString.copyFrom(blank.getBytes());

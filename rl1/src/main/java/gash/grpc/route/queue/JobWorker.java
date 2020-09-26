@@ -9,6 +9,7 @@ public abstract class JobWorker<T> extends Thread {
 	private int tasksDone;
 	private long lastTask;
 	private String workerID = "JW";
+	private int time = 0;
 
 	// each worker can have a set of tasks that it is assigned
 	private LinkedBlockingDeque<T> queue = new LinkedBlockingDeque<T>();
@@ -45,7 +46,9 @@ public abstract class JobWorker<T> extends Thread {
 		while (forever) {
 			try {
 				System.out.println("--> " + workerID + " waiting for work");
+				System.out.println("total tasks size in queue: " +  queue.size());
 				var task = queue.take();
+				
 				tasksDone++;
 				lastTask = System.currentTimeMillis();
 				process(task);
