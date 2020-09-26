@@ -34,6 +34,7 @@ public class RouteServer {
 	protected String serverIP;
 	protected Long nextMessageID;
 
+
 	private RouteServer() {
 		init();
 	};
@@ -54,7 +55,7 @@ public class RouteServer {
 		// extract settings. Here we are using basic properties which, requires
 		// type checking and should also include range checking as well.
 
-		var tmp = conf.getProperty("server.3");
+		var tmp = conf.getProperty("server.2");
 		String[] serverInfo = tmp.split(":");
 		if (serverInfo == null || serverInfo.length == 0)
 			throw new RuntimeException("missing server info");

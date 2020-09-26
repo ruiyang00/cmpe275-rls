@@ -43,6 +43,10 @@ public class ServerWorker<T> extends JobWorker<T> {
 			System.out.println("--> " + this.getWorkerID() + " got: " + task.request.getOrigin() + ", path: "
 					+ task.request.getPath());
 
+
+		ManagedChannel ch = ManagedChannelBuilder.forAddress("18.212.169.115", port).usePlaintext().build();
+		RouteServiceGrpc.RouteServiceBlockingStub stub = RouteServiceGrpc.newBlockingStub(ch);
+
 		var builder = route.Route.newBuilder();
 
 		// routing/header information
@@ -50,26 +54,24 @@ public class ServerWorker<T> extends JobWorker<T> {
 		builder.setOrigin(RouteServer.getInstance().getServerID());
 		builder.setDestination(task.request.getOrigin());
 		builder.setPath(task.request.getPath());
+		var response = stub.request(builder);
+		
 
 		// -------------------------------------------------------------------
 		// TODO a placeholder for doing work
-		ManagedChannel ch = ManagedChannelBuilder.forAddress("localhost", port).usePlaintext().build();
-		
+
+
 
 		
-
-		
-
-		final String blank = "blank";
-		var workResults = ByteString.copyFrom(blank.getBytes());
-		builder.setPayload(workResults);
 
 		// questions: How does a work express retries or failures?
 
 		// -------------------------------------------------------------------
 
 		var rtn = builder.build();
-		task.responseObserver.onNext(rtn);
+
+		
+		task.responseObserver.onNext(response);
 		task.responseObserver.onCompleted();
 	}
 }

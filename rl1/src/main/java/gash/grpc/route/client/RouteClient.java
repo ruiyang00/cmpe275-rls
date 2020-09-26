@@ -92,7 +92,7 @@ public class RouteClient {
 		qos.snapshot();
 		System.out.flush();
 
-		int I = 3000;
+		int I = 1000;
 		for (int i = 0; i < I; i++) {
 			// build a sizable payload
 			byte[] raw = RouteClient.generateData();
